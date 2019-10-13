@@ -16,7 +16,7 @@ public class DiagnosisPenyakitModel implements Serializable {
     @Id
     @Size(max = 20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idDiagnosisPenyakit;
 
     @NotNull
     @Size(max = 255)
@@ -28,12 +28,12 @@ public class DiagnosisPenyakitModel implements Serializable {
     @Column(name = "nama", nullable = false)
     private String nama;
 
-    public Long getId() {
-        return id;
+    public Long getIdDiagnosisPenyakit() {
+        return idDiagnosisPenyakit;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdDiagnosisPenyakit(Long idDiagnosisPenyakit) {
+        this.idDiagnosisPenyakit = idDiagnosisPenyakit;
     }
 
     public String getKode() {

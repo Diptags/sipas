@@ -13,7 +13,7 @@ public class PasienModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idPasien;
 
     @NotNull
     @Size(max = 13)
@@ -58,12 +58,12 @@ public class PasienModel implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "diagnosisPenyakitId"))
     private List<DiagnosisPenyakitModel> listDiagnosisPenyakit;
 
-    public Long getId() {
-        return id;
+    public Long getIdPasien() {
+        return idPasien;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdPasien(Long idPasien) {
+        this.idPasien = idPasien;
     }
 
     public String getKode() {
