@@ -2,6 +2,7 @@ package com.sipas.app.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,23 +11,22 @@ import java.util.List;
 public class DiagnosisPenyakitModel implements Serializable {
 
     @ManyToMany(mappedBy = "listDiagnosisPenyakit")
-    List<PasienModel> listPenderita;
+    private List<PasienModel> listPenderita;
 
     @Id
+    @Size(max = 20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
+    @Size(max = 255)
     @Column(name = "kode", nullable = false)
     private String kode;
 
     @NotNull
+    @Size(max = 255)
     @Column(name = "nama", nullable = false)
     private String nama;
-
-    @NotNull
-    @Column(name = "nomorHp", nullable = false)
-    private String nomorHp;
 
     public Long getId() {
         return id;
@@ -50,14 +50,6 @@ public class DiagnosisPenyakitModel implements Serializable {
 
     public void setNama(String nama) {
         this.nama = nama;
-    }
-
-    public String getNomorHp() {
-        return nomorHp;
-    }
-
-    public void setNomorHp(String nomorHp) {
-        this.nomorHp = nomorHp;
     }
 
     public List<PasienModel> getListPenderita() {

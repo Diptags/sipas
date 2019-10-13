@@ -2,6 +2,7 @@ package com.sipas.app.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -9,18 +10,22 @@ import java.io.Serializable;
 public class EmergencyContactModel implements Serializable {
 
     @Id
+    @Size(max = 20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
+    @Size(max = 255)
     @Column(name = "nik", nullable = false)
     private String nik;
 
     @NotNull
+    @Size(max = 255)
     @Column(name = "nama", nullable = false)
     private String nama;
 
     @NotNull
+    @Size(max = 255)
     @Column(name = "nomorHp", nullable = false)
     private String nomorHp;
 

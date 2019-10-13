@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,32 +30,32 @@ public class PasienModel implements Serializable {
 
     @NotNull
     @Column(name = "jenisKelamin", nullable = false)
-    private String jenisKelamin;
+    private Integer jenisKelamin;
 
     @NotNull
     @Column(name = "tanggalLahir", nullable = false)
-    private String tanggalLahir;
+    private Date tanggalLahir;
 
     @NotNull
     @Column(name = "tempatLahir", nullable = false)
     private String tempatLahir;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "emergencyContactId", referencedColumnName = "id")
+    @JoinColumn(name = "idEmergencyContact", referencedColumnName = "id")
     private EmergencyContactModel emergencyContact;
 
     @ManyToMany
     @JoinTable(
-            name = "PasienAsuransi",
-            joinColumns = @JoinColumn(name = "idPasien"),
-            inverseJoinColumns = @JoinColumn(name = "idAsuransi"))
+            name = "pasien_asuransi",
+            joinColumns = @JoinColumn(name = "pasienId"),
+            inverseJoinColumns = @JoinColumn(name = "asuransiId"))
     private List<AsuransiModel> listAsuransi;
 
     @ManyToMany
     @JoinTable(
-            name = "PasienDiagnosisPenyakit",
-            joinColumns = @JoinColumn(name = "idPasien"),
-            inverseJoinColumns = @JoinColumn(name = "idDiagnosisPenyakit"))
+            name = "pasien_diagnosis_penyakit",
+            joinColumns = @JoinColumn(name = "pasienId"),
+            inverseJoinColumns = @JoinColumn(name = "diagnosisPenyakitId"))
     private List<DiagnosisPenyakitModel> listDiagnosisPenyakit;
 
     public Long getId() {
@@ -89,19 +90,19 @@ public class PasienModel implements Serializable {
         this.nama = nama;
     }
 
-    public String getJenisKelamin() {
+    public Integer getJenisKelamin() {
         return jenisKelamin;
     }
 
-    public void setJenisKelamin(String jenisKelamin) {
+    public void setJenisKelamin(Integer jenisKelamin) {
         this.jenisKelamin = jenisKelamin;
     }
 
-    public String getTanggalLahir() {
+    public Date getTanggalLahir() {
         return tanggalLahir;
     }
 
-    public void setTanggalLahir(String tanggalLahir) {
+    public void setTanggalLahir(Date tanggalLahir) {
         this.tanggalLahir = tanggalLahir;
     }
 

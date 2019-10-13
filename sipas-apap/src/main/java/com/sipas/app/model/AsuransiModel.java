@@ -2,6 +2,7 @@ package com.sipas.app.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,14 +14,17 @@ public class AsuransiModel implements Serializable {
     List<PasienModel> listPemilik;
 
     @Id
+    @Size(max = 20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
+    @Size(max = 255)
     @Column(name = "nama", nullable = false)
     private String nama;
 
     @NotNull
+    @Size(max = 255)
     @Column(name = "jenis", nullable = false)
     private String jenis;
 
