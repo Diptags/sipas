@@ -45,16 +45,16 @@ public class PasienModel implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            name = "pasien_asuransi",
-            joinColumns = @JoinColumn(name = "pasienId"),
-            inverseJoinColumns = @JoinColumn(name = "asuransiId"))
+            name = "PasienAsuransi",
+            joinColumns = @JoinColumn(name = "idPasien"),
+            inverseJoinColumns = @JoinColumn(name = "idAsuransi"))
     private List<AsuransiModel> listAsuransi;
 
     @ManyToMany
     @JoinTable(
-            name = "pasien_diagnosis",
-            joinColumns = @JoinColumn(name = "pasienId"),
-            inverseJoinColumns = @JoinColumn(name = "diagnosisPenyakitId"))
+            name = "PasienDiagnosisPenyakit",
+            joinColumns = @JoinColumn(name = "idPasien"),
+            inverseJoinColumns = @JoinColumn(name = "idDiagnosisPenyakit"))
     private List<DiagnosisPenyakitModel> listDiagnosisPenyakit;
 
     public Long getId() {
