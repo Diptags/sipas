@@ -5,8 +5,39 @@
 </head>
 
 <body>
+// Tambah diagnosis, lihat, ubah, hapus
 
-<h2>Daftar Pasien</h2>
+<h2>Daftar Seluruh Pasien</h2>
 
+<form th:action="@{/pasien/tambah}" method="POST">
+    <button> Tambah Pasien </button>
+</form>
+
+<div th:each="pasien : ${pasienList}">
+    <h3 th:text="'Nama: ' + ${pasien.nama}"></h3>
+    <h3 th:text="'NIK: ' + ${pasien.nik}"></h3>
+    <h3 th:text="'Jenis Kelamin: ' + ${pasien.jenisKelamin}"></h3>
+    <h3 th:text="'Kode Pasien: ' + ${pasien.kode}"></h3>
+    <h3 th:text="'Tempat Lahir: ' + ${pasien.tempatLahir}"></h3>
+    <h3 th:text="'Tanggal Lahir: ' + ${pasien.tanggalLahir}"></h3>
+    <h3 th:text="'Nomor Emergency Contact: ' + ${pasien.emergencyContact.getNomorHp()}"></h3>
+
+    <form th:action="@{/diagnosis-penyakit/tambah}" method="POST">
+        <button> Tambah Diagnosis </button>
+    </form>
+
+    <a th:href="@{/pasien(nikPasien=${pasien.nik})}">
+        <button> Lihat </button>
+    </a>
+
+    <form th:action="@{/pasien/ubah/}+${pasien.nik}" method="POST">
+        <button> Ubah </button>
+    </form>
+
+    <form th:action="@{/pasien/hapus/}+${pasien.nik}" method="POST">
+        <button> Hapus </button>
+    </form>
+
+</div>
 </body>
 </html>

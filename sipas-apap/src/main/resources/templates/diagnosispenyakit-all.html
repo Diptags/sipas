@@ -8,5 +8,23 @@
 
 <h2>Halaman Semua Diagnosis Penyakit</h2>
 
+<div th:each="penyakit : ${diagnosisPenyakitList}">
+    <h3 th:text="'Nama: ' + ${penyakit.nama}"></h3>
+    <h3 th:text="'Kode: ' + ${penyakit.kode}"></h3>
+
+<!--    <a th:href="@{/pasien(nikPasien=${pasien.nik})}">-->
+<!--        <button> Lihat </button>-->
+<!--    </a>-->
+
+<!--    <form th:action="@{/pasien/ubah/}+${pasien.nik}" method="POST">-->
+<!--        <button> Ubah </button>-->
+<!--    </form>-->
+
+<!--    <form th:action="@{/pasien/hapus/}+${pasien.nik}" method="POST">-->
+<!--        <button> Hapus </button>-->
+<!--    </form>-->
+
+</div>
+
 </body>
 </html>

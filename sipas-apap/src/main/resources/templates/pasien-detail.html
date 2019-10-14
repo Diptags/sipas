@@ -6,7 +6,24 @@
 
 <body>
 
-<h2>Halaman info Pasien based on NIK</h2>
+<h2>Detail Data Pasien</h2>
+
+<h3 th:text="'Nama: ' + ${pasien.nama}"></h3>
+<h3 th:text="'NIK: ' + ${pasien.nik}"></h3>
+<h3 th:text="'Kode: ' + ${pasien.kode}"></h3>
+<h3 th:text="'Jenis Kelamin: ' + ${pasien.jenisKelamin}"></h3>
+<h3 th:text="'Tanggal Lahir: ' + ${pasien.tanggalLahir}"></h3>
+<h3 th:text="'Tempat Lahir: ' + ${pasien.tempatLahir}"></h3>
+<h3 th:text="'Emergency Contact: ' +
+${pasien.emergencyContact.getNama()} + ' ' +
+${pasien.emergencyContact.getNik()} + ' ' +
+${pasien.emergencyContact.getNomorHp()}"></h3>
+
+<h3 th:text="${pasien.listAsuransi}"></h3>
+
+<div th:each="asuransi : ${pasien.listAsuransi}">
+    <h3 th:text="${asuransi.getNama()}"></h3>
+</div>
 
 </body>
 </html>
