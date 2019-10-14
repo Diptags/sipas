@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface PasienDb extends JpaRepository<PasienModel, Long> {
-    List<PasienModel> findByIdPasien(Long idPasien);
+    PasienModel findByIdPasien(Long idPasien);
+    PasienModel findByNik(String nik);
 }

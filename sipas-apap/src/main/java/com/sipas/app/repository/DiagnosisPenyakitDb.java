@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DiagnosisPenyakitDb extends JpaRepository<DiagnosisPenyakitModel, Long> {
-    List<DiagnosisPenyakitModel> findByIdDiagnosisPenyakit(Long idDiagnosisPenyakit);
+    DiagnosisPenyakitModel findByIdDiagnosisPenyakit(Long idDiagnosisPenyakit);
 }
