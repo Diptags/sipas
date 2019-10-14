@@ -1,11 +1,14 @@
 package com.sipas.app.controller;
 
+import com.sipas.app.model.PasienModel;
 import com.sipas.app.service.DiagnosisPenyakitService;
 import com.sipas.app.service.PasienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class PasienController {
@@ -18,7 +21,9 @@ public class PasienController {
 
     // Membuka halaman utama SIPAS
     @GetMapping("/")
-    public String showHomePage(){
+    public String showHomePage(Model model){
+        List<PasienModel> pasienList = pasienService.getPasienList();
+        model.addAttribute("pasienList", pasienList);
         return "homepage";
     }
 
@@ -30,7 +35,9 @@ public class PasienController {
 
     // Membuka detail dari pasien berdasarkan NIK pasien
     @GetMapping(value = "/pasien")
-    public String showPasienInfoByNik(@RequestParam(value = "nikPasien") String nik, Model model) {
+    public String showPasienInfoByNik(@RequestParam(value = "nikPasien") String nikPasien, Model model) {
+        PasienModel pasien = pasienService.getPasienByNikPasien(nikPasien);
+        model.addAttribute("pasien", pasien);
         return "pasien-detail";
     }
 

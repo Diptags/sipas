@@ -1,5 +1,6 @@
 package com.sipas.app.controller;
 
+import com.sipas.app.model.DiagnosisPenyakitModel;
 import com.sipas.app.service.DiagnosisPenyakitService;
 import com.sipas.app.service.PasienService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class DiagnosisPenyakitController {
@@ -20,7 +23,9 @@ public class DiagnosisPenyakitController {
 
     // Menampilkan seluruh diagnosis penyakit
     @GetMapping(value = "/diagnosis-penyakit-all")
-    public String showAllDiagnosisPenyakit() {
+    public String showAllDiagnosisPenyakit(Model model) {
+        List<DiagnosisPenyakitModel> diagnosisPenyakitList = diagnosisPenyakitService.getDiagnosisPenyakitList();
+        model.addAttribute("diagnosisPenyakitList", diagnosisPenyakitList);
         return "diagnosispenyakit-all";
     }
 
