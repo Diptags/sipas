@@ -5,6 +5,8 @@ import com.sipas.app.repository.DiagnosisPenyakitDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DiagnosisPenyakitServiceImpl implements DiagnosisPenyakitService{
 
@@ -17,8 +19,17 @@ public class DiagnosisPenyakitServiceImpl implements DiagnosisPenyakitService{
     }
 
     @Override
+    public List<DiagnosisPenyakitModel> getDiagnosisPenyakitList(){
+        return diagnosisPenyakitDb.findAll();
+    }
+
+    @Override
+    public DiagnosisPenyakitModel getDiagnosisPenyakitByIdDiagnosisPenyakit(Long idDiagnosisPenyakit){
+        return diagnosisPenyakitDb.findByIdDiagnosisPenyakit(idDiagnosisPenyakit);
+    }
+
+    @Override
     public void deleteDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakit){
         diagnosisPenyakitDb.delete(diagnosisPenyakit);
     }
-
 }
