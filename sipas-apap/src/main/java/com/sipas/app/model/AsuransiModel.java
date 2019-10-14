@@ -1,5 +1,8 @@
 package com.sipas.app.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,7 +19,7 @@ public class AsuransiModel implements Serializable {
     @Id
     @Size(max = 20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idAsuransi;
 
     @NotNull
     @Size(max = 255)
@@ -28,12 +31,16 @@ public class AsuransiModel implements Serializable {
     @Column(name = "jenis", nullable = false)
     private String jenis;
 
-    public Long getId() {
-        return id;
+    @ManyToMany(mappedBy = "listAsuransi", fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<PasienModel> listPasien;
+
+    public Long getIdAsuransi() {
+        return idAsuransi;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdAsuransi(Long idAsuransi) {
+        this.idAsuransi = idAsuransi;
     }
 
     public String getNama() {

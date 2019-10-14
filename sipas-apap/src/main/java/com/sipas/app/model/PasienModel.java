@@ -1,5 +1,8 @@
 package com.sipas.app.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,18 +47,20 @@ public class PasienModel implements Serializable {
     @JoinColumn(name = "idEmergencyContact", referencedColumnName = "id")
     private EmergencyContactModel emergencyContact;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "pasien_asuransi",
             joinColumns = @JoinColumn(name = "pasienId"),
             inverseJoinColumns = @JoinColumn(name = "asuransiId"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<AsuransiModel> listAsuransi;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "pasien_diagnosis_penyakit",
             joinColumns = @JoinColumn(name = "pasienId"),
             inverseJoinColumns = @JoinColumn(name = "diagnosisPenyakitId"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<DiagnosisPenyakitModel> listDiagnosisPenyakit;
 
     public Long getIdPasien() {
