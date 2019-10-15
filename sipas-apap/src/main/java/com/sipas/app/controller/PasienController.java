@@ -79,21 +79,60 @@ public class PasienController {
         return "message-info";
     }
 
-    // Mencari pasien berdasarkan Asuransi dan/atau diagnosis penyakit
-    @GetMapping(value = "/pasien/cari")
-    public String showPasienInfoByAsuransiDiagnosis(
-            @RequestParam(value = "idAsuransi") Long idAsuransi,
-            @RequestParam(value = "idDiagnosis") Long idDiagnosis,
-            Model model) {
-        return "pasien-find-asuransi-diagnosis";
-    }
-
-    // Menampilkan jumlah pasien laki - laki dan perempuan di suatu diagnosis
-    @GetMapping(value = "/pasien/cari/termuda-tertua")
-    public String showPasienInfoByGenderDiagnosis(
-            @RequestParam(value = "idAsuransi") Long idAsuransi,
-            Model model) {
+    // Membuka halaman pencarian pasien berdasarkan Asuransi diagnosis penyakit
+    @GetMapping(value = "/pasien/cari/diagnosis")
+    public String showPasienInfoByDiagnosisForm(@ModelAttribute("selectedDiagnosisPenyakit") DiagnosisPenyakitModel selectedDiagnosisPenyakit,
+                                                Model model)
+    {
+        List<DiagnosisPenyakitModel> diagnosisPenyakitList = diagnosisPenyakitService.getDiagnosisPenyakitList();
+        model.addAttribute("diagnosisPenyakitList", diagnosisPenyakitList);
         return "pasien-find-gender-diagnosis";
     }
+
+    // Submit form pencarian pasien berdasarkan diagnosis & menampilkan berdasarkan gender
+    @PostMapping(value = "/pasien/cari/diagnosis")
+    public String submitPasienInfoByDiagnosisForm(@ModelAttribute("selectedDiagnosisPenyakit") DiagnosisPenyakitModel selectedDiagnosisPenyakit,
+                                                  Model model)
+    {
+        Long idDiagnosisPenyakit = selectedDiagnosisPenyakit.getIdDiagnosisPenyakit();
+        DiagnosisPenyakitModel diagnosisPenyakit = diagnosisPenyakitService.getDiagnosisPenyakitByIdDiagnosisPenyakit(idDiagnosisPenyakit);
+        List<PasienModel> listPenderita = diagnosisPenyakit.getListPenderita();
+
+        int counterMan = 0;
+        int counterWoman = 0;
+
+        for(PasienModel pasien : listPenderita){
+            if(pasien.getJenisKelamin().equals(0)){
+                counterMan++;
+            }
+            else{
+                counterWoman++;
+            }
+        }
+        model.addAttribute("namaPenyakit", diagnosisPenyakit.getNama());
+        model.addAttribute("counterMan", counterMan);
+        model.addAttribute("counterWoman", counterWoman);
+        return "pasien-find-gender-diagnosis-result";
+    }
+
+//    // Mencari pasien berdasarkan Asuransi dan/atau diagnosis penyakit
+//    @GetMapping(value = "/pasien/cari")
+//    public String showPasienInfoByAsuransiDiagnosis(
+//            @RequestParam(value = "idAsuransi") Long idAsuransi,
+//            @RequestParam(value = "idDiagnosis") Long idDiagnosis,
+//            Model model) {
+//        return "pasien-find-asuransi-diagnosis";
+//    }
+
+    // Membuka halaman pencarian pasien berdasarkan Asuransi dan/atau diagnosis penyakit
+
+
+//    // Menampilkan jumlah pasien laki - laki dan perempuan di suatu diagnosis
+//    @GetMapping(value = "/pasien/cari/termuda-tertua")
+//    public String showPasienInfoByGenderDiagnosis(
+//            @RequestParam(value = "idAsuransi") Long idAsuransi,
+//            Model model) {
+//        return "pasien-find-gender-diagnosis";
+//    }
 
 }

@@ -31,7 +31,7 @@
                         <th scope="row" th:text="${penyakit.idDiagnosisPenyakit}"></th>
                         <td th:text="${penyakit.nama}"></td>
                         <td th:text="${penyakit.kode}"></td>
-                        <td th:text="'Coming Soon'"></td>
+                        <td th:text="${penyakit.listPenderita.size()} + ' Orang'"></td>
                         <td>
                             <div class="row">
                                 <div class="col-2">

@@ -58,7 +58,6 @@
     </div>
     <br>
     <form th:action="@{/pasien/}+${pasien.nik}+'/tambah-diagnosis'" th:object="${selectedDiagnosisPenyakit}", method="POST">
-<!--        <input type="hidden" th:value="${pasien.idPasien}" />-->
         <div class="row">
             <div class="col">
                 <select class="form-control" th:field="*{kode}">

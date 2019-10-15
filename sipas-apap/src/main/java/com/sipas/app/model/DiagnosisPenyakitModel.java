@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name = "diagnosisPenyakit")
 public class DiagnosisPenyakitModel implements Serializable {
 
-    @ManyToMany(mappedBy = "listDiagnosisPenyakit")
+    @ManyToMany(mappedBy = "listDiagnosisPenyakit", fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PasienModel> listPenderita;
 
     @Id
@@ -29,10 +30,6 @@ public class DiagnosisPenyakitModel implements Serializable {
     @Size(max = 255)
     @Column(name = "nama", nullable = false)
     private String nama;
-
-    @ManyToMany(mappedBy = "listDiagnosisPenyakit", fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<PasienModel> listPasien;
 
     public Long getIdDiagnosisPenyakit() {
         return idDiagnosisPenyakit;
