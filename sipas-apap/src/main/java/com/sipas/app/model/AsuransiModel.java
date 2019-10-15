@@ -17,7 +17,6 @@ public class AsuransiModel implements Serializable {
     List<PasienModel> listPemilik;
 
     @Id
-    @Size(max = 20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAsuransi;
 

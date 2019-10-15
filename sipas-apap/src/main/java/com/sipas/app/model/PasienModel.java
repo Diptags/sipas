@@ -47,7 +47,7 @@ public class PasienModel implements Serializable {
     @JoinColumn(name = "idEmergencyContact", referencedColumnName = "id")
     private EmergencyContactModel emergencyContact;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "pasien_asuransi",
             joinColumns = @JoinColumn(name = "pasienId"),
@@ -55,7 +55,7 @@ public class PasienModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<AsuransiModel> listAsuransi;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "pasien_diagnosis_penyakit",
             joinColumns = @JoinColumn(name = "pasienId"),
@@ -135,11 +135,27 @@ public class PasienModel implements Serializable {
         this.listAsuransi = listAsuransi;
     }
 
+    public void addAsuransi(AsuransiModel asuransi){
+        listAsuransi.add(asuransi);
+    }
+
+    public void removeAsuransi(AsuransiModel asuransi){
+        listAsuransi.remove(asuransi);
+    }
+
     public List<DiagnosisPenyakitModel> getListDiagnosisPenyakit() {
         return listDiagnosisPenyakit;
     }
 
     public void setListDiagnosisPenyakit(List<DiagnosisPenyakitModel> listDiagnosisPenyakit) {
         this.listDiagnosisPenyakit = listDiagnosisPenyakit;
+    }
+
+    public void addDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakit){
+        listDiagnosisPenyakit.add(diagnosisPenyakit);
+    }
+
+    public void removeDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakitModel){
+        listDiagnosisPenyakit.remove(diagnosisPenyakitModel);
     }
 }

@@ -17,7 +17,6 @@ public class DiagnosisPenyakitModel implements Serializable {
     private List<PasienModel> listPenderita;
 
     @Id
-    @Size(max = 20)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDiagnosisPenyakit;
 

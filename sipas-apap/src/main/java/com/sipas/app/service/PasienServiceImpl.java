@@ -1,5 +1,6 @@
 package com.sipas.app.service;
 
+import com.sipas.app.model.DiagnosisPenyakitModel;
 import com.sipas.app.model.PasienModel;
 import com.sipas.app.repository.PasienDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class PasienServiceImpl implements PasienService{
     @Override
     public PasienModel getPasienByNikPasien(String nik){
         return pasienDb.findByNik(nik);
+    }
+
+    @Override
+    public void addDiagnosisToPasien(PasienModel pasien, DiagnosisPenyakitModel diagnosisPenyakit){
+        pasien.addDiagnosisPenyakit(diagnosisPenyakit);
+        pasienDb.save(pasien);
     }
 
     @Override

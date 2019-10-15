@@ -29,7 +29,8 @@ public class DiagnosisPenyakitServiceImpl implements DiagnosisPenyakitService{
     }
 
     @Override
-    public void deleteDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakit){
+    public void deleteDiagnosisPenyakit(Long idDiagnosisPenyakit){
+        DiagnosisPenyakitModel diagnosisPenyakit = getDiagnosisPenyakitByIdDiagnosisPenyakit(idDiagnosisPenyakit);
         diagnosisPenyakitDb.delete(diagnosisPenyakit);
     }
 }

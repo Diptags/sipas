@@ -6,9 +6,7 @@ import com.sipas.app.service.PasienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +21,8 @@ public class DiagnosisPenyakitController {
 
     // Menampilkan seluruh diagnosis penyakit
     @GetMapping(value = "/diagnosis-penyakit-all")
-    public String showAllDiagnosisPenyakit(Model model) {
+    public String showAllDiagnosisPenyakit(Model model)
+    {
         List<DiagnosisPenyakitModel> diagnosisPenyakitList = diagnosisPenyakitService.getDiagnosisPenyakitList();
         model.addAttribute("diagnosisPenyakitList", diagnosisPenyakitList);
         return "diagnosispenyakit-all";
@@ -31,20 +30,40 @@ public class DiagnosisPenyakitController {
 
     // Menampilkan diagnosis penyakit berdasarkan id diagnosis
     @GetMapping(value = "/diagnosis-penyakit")
-    public String showDiagnosisPenyakitById(@RequestParam(value = "idDiagnosis") Long id, Model model) {
+    public String showDiagnosisPenyakitById(@RequestParam(value = "idDiagnosis") Long idDiagnosisPenyakit, Model model)
+    {
+        DiagnosisPenyakitModel diagnosisPenyakit = diagnosisPenyakitService.getDiagnosisPenyakitByIdDiagnosisPenyakit(idDiagnosisPenyakit);
+        model.addAttribute("penyakit", diagnosisPenyakit);
         return "diagnosispenyakit-detail";
     }
 
     // Membuka form untuk menambahkan diagnosis penyakit dari pasien
-    @PostMapping(value = "/diagnosis-penyakit/tambah")
-    public String showAddDiagnosisPenyakitForm() {
+    @GetMapping(value = "/diagnosis-penyakit/tambah")
+    public String showAddDiagnosisPenyakitForm(Model model)
+    {
+        DiagnosisPenyakitModel diagnosisPenyakit = new DiagnosisPenyakitModel();
+        model.addAttribute("penyakit", diagnosisPenyakit);
         return "diagnosispenyakit-add";
     }
 
+    // Mengirimkan data dari form tambah diagnosis penyakit ke database
+    @PostMapping(value = "/diagnosis-penyakit/tambah")
+    public String submitAddDiagnosisPenyakitForm(@ModelAttribute DiagnosisPenyakitModel diagnosisPenyakit,
+                                                 Model model)
+    {
+        diagnosisPenyakitService.addDiagnosisPenyakit(diagnosisPenyakit);
+        model.addAttribute("pesan", "Data diagnosis penyakit berhasil ditambahkan");
+        return "message-info";
+    }
+
     // Melakukan penghapusan data diagnosis penyakit
-    @PostMapping(value = "/diagnosis-penyakit/hapus")
-    public String deleteDiagnosisPenyakit() {
-        return "diagnosispenyakit-delete";
+    @GetMapping(value = "/diagnosis-penyakit/hapus/{idDiagnosisPenyakit}")
+    public String deleteDiagnosisPenyakit(@PathVariable("idDiagnosisPenyakit") Long idDiagnosisPenyakit,
+                                          Model model)
+    {
+        diagnosisPenyakitService.deleteDiagnosisPenyakit(idDiagnosisPenyakit);
+        model.addAttribute("pesan", "Data diagnosis penyakit berhasil dihapus");
+        return "message-info";
     }
 
 }

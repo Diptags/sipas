@@ -8,5 +8,5 @@ public interface DiagnosisPenyakitService {
     void addDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakit);
     List<DiagnosisPenyakitModel> getDiagnosisPenyakitList();
     DiagnosisPenyakitModel getDiagnosisPenyakitByIdDiagnosisPenyakit(Long idDiagnosisPenyakit);
-    void deleteDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakit);
+    void deleteDiagnosisPenyakit(Long idDiagnosisPenyakit);
 }

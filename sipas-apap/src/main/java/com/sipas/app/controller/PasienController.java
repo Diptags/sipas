@@ -1,5 +1,6 @@
 package com.sipas.app.controller;
 
+import com.sipas.app.model.DiagnosisPenyakitModel;
 import com.sipas.app.model.PasienModel;
 import com.sipas.app.service.DiagnosisPenyakitService;
 import com.sipas.app.service.PasienService;
@@ -28,7 +29,7 @@ public class PasienController {
     }
 
     // Membuka form untuk menambahkan pasien
-    @PostMapping(value = "/pasien/tambah")
+    @GetMapping(value = "/pasien/tambah")
     public String showAddPasienForm() {
         return "pasien-add";
     }
@@ -48,9 +49,34 @@ public class PasienController {
     }
 
     // Membuka form untuk menambah diagnosis penyakit pasien
-    @PostMapping(value = "/pasien/{nikPasien}/tambah-diagnosis")
-    public String showAddDiagnosisPenyakitForm() {
+    @GetMapping(value = "/pasien/{nikPasien}/tambah-diagnosis")
+    public String showAddDiagnosisPenyakitForm(@PathVariable String nikPasien,
+                                               @ModelAttribute("selectedDiagnosisPenyakit") DiagnosisPenyakitModel selectedDiagnosisPenyakit,
+                                               Model model)
+    {
+        PasienModel pasien = pasienService.getPasienByNikPasien(nikPasien);
+        List<DiagnosisPenyakitModel> diagnosisPenyakitList = diagnosisPenyakitService.getDiagnosisPenyakitList();
+
+        model.addAttribute("pasien", pasien);
+        model.addAttribute("diagnosisPenyakitList", diagnosisPenyakitList);
         return "pasien-add-diagnosis";
+    }
+
+    // Melakukan submit form penambahan diagnosis penyakit pasien
+    @PostMapping(value = "/pasien/{nikPasien}/tambah-diagnosis")
+    public String submitAddDiagnosisPenyakitForm(@ModelAttribute("selectedDiagnosisPenyakit") DiagnosisPenyakitModel selectedDiagnosisPenyakit,
+                                                 Model model)
+    {
+        String[] temporaryData = selectedDiagnosisPenyakit.getKode().split(" ");
+        Long idDiagnosisPenyakit = (Long) Long.parseLong(temporaryData[0]);
+        Long idPasien = (Long) Long.parseLong(temporaryData[1]);
+
+        DiagnosisPenyakitModel penyakit = diagnosisPenyakitService.getDiagnosisPenyakitByIdDiagnosisPenyakit(idDiagnosisPenyakit);
+        PasienModel pasien = pasienService.getPasienByIdPasien(idPasien);
+
+        pasienService.addDiagnosisToPasien(pasien, penyakit);
+        model.addAttribute("pesan", "Data diagnosis penyakit berhasil ditambahkan kepada pasien");
+        return "message-info";
     }
 
     // Mencari pasien berdasarkan Asuransi dan/atau diagnosis penyakit
