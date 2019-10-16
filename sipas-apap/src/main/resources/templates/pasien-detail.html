@@ -59,13 +59,21 @@
         <div class="card">
             <div class="card-header bg-dark text-white">Asuransi Milik Pasien</div>
             <div class="card-body">
-                <div th:each="asuransi : ${pasien.listAsuransi}">
-                    <div class="row">
-                        <div class="col-4" th:text="${pasien.listAsuransi.indexOf(asuransi) + 1}"></div>
-                        <div class="col" th:text="${asuransi.getNama()}"></div>
-                    </div>
-                    <div class="dropdown-divider"></div>
-                </div>
+                <table class="table" th:if="${pasien.listAsuransi.size() > 0}">
+                    <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="asuransi : ${pasien.listAsuransi}">
+                        <th scope="row" th:text="${pasien.listAsuransi.indexOf(asuransi) + 1}"></th>
+                        <td th:text="${asuransi.getNama()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p th:unless="${pasien.listAsuransi.size() > 0}">Pasien belum memiliki data asuransi</p>
             </div>
         </div>
     </div>
