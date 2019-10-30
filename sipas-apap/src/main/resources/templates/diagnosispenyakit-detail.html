@@ -30,7 +30,23 @@
         </div>
         <div class="card">
             <div class="card-header bg-dark text-white">Pasien yang Terdiagnosis</div>
-            <div class="card-body"> Coming Soon </div>
+            <div class="card-body">
+                <table class="table" th:if="${listPenderita.size() > 0}">
+                    <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pasien : ${listPenderita}">
+                        <th scope="row" th:text="${listPenderita.indexOf(pasien) + 1}"></th>
+                        <td th:text="${pasien.getNama()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p th:unless="${listPenderita.size() > 0}">Belum ada pasien yang mengidap penyakit ini</p>
+            </div>
         </div>
     </div>
 </body>

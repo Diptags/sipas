@@ -33,7 +33,7 @@
             <div class="dropdown-divider"></div>
             <div class="row">
                 <div class="col-4">Jenis Kelamin</div>
-                <div class="col" th:text="${pasien.jenisKelamin}"></div>
+                <div class="col" th:text="${pasien.jenisKelamin.equals(1)} ? 'Laki-Laki' : 'Perempuan'"></div>
             </div>
             <div class="dropdown-divider"></div>
             <div class="row">

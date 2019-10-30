@@ -19,7 +19,6 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th scope="col">No</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">NIK</th>
                                 <th scope="col">Jenis Kelamin</th>
@@ -31,13 +30,12 @@
                             </thead>
                             <tbody>
                             <tr th:each="pasien : ${dataPencarian}">
-                                <th scope="row" th:text="${pasien.idPasien}"></th>
                                 <td th:text="${pasien.nama}"></td>
                                 <td th:text="${pasien.nik}"></td>
-                                <td th:text="${pasien.jenisKelamin}"></td>
+                                <td th:text="${pasien.jenisKelamin.equals(1)} ? 'Laki-Laki' : 'Perempuan'" />
                                 <td th:text="${pasien.kode}"></td>
                                 <td th:text="${pasien.tempatLahir}"></td>
-                                <td th:text="${pasien.tanggalLahir}"></td>
+                                <td th:text="${#strings.substring(pasien.tanggalLahir,0,10)}"></td>
                                 <td th:text="${pasien.emergencyContact.getNomorHp()}"></td>
                             </tr>
                             </tbody>

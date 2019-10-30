@@ -17,13 +17,17 @@
             <div class="card-body">
                 <form th:action="@{/diagnosis-penyakit/tambah}" th:object="${penyakit}" method="POST">
                     <div class="row">
-                        <div class="col-4">Nama Penyakit</div>
-                        <input type="text" name="nama"/>
+                        <div class="col-3">Nama Penyakit</div>
+                        <div class="col-6">
+                            <input class="form-control" type="text" name="nama"/>
+                        </div>
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="row">
-                        <div class="col-4">Kode Penyakit</div>
-                        <input type="text" name="kode"/>
+                        <div class="col-3">Kode Penyakit</div>
+                        <div class="col-6">
+                            <input class="form-control" type="text" name="kode"/>
+                        </div>
                     </div>
                     <div class="dropdown-divider"></div>
                     <button type="submit" class="btn btn-primary btn-sm"> Submit </button>
