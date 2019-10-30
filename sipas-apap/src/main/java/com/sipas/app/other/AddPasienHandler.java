@@ -1,6 +1,6 @@
 package com.sipas.app.other;
 
-public class ChangePasienHandler {
+public class AddPasienHandler {
 
     private String nikPasien;
     private String namaPasien;
@@ -11,6 +11,16 @@ public class ChangePasienHandler {
     private String nikEmergency;
     private String namaEmergency;
     private String nomorHpEmergency;
+
+    private Long idAsuransi;
+
+    public Long getIdAsuransi() {
+        return idAsuransi;
+    }
+
+    public void setIdAsuransi(Long idAsuransi) {
+        this.idAsuransi = idAsuransi;
+    }
 
     public String getNikPasien() {
         return nikPasien;
