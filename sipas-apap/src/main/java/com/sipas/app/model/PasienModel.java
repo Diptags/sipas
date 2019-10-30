@@ -1,8 +1,5 @@
 package com.sipas.app.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,23 +41,21 @@ public class PasienModel implements Serializable {
     private String tempatLahir;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idEmergencyContact", referencedColumnName = "id")
+    @JoinColumn(name = "idEmergencyContact", referencedColumnName = "idEmergencyContact")
     private EmergencyContactModel emergencyContact;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "pasien_asuransi",
             joinColumns = @JoinColumn(name = "pasienId"),
             inverseJoinColumns = @JoinColumn(name = "asuransiId"))
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<AsuransiModel> listAsuransi;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "pasien_diagnosis_penyakit",
             joinColumns = @JoinColumn(name = "pasienId"),
             inverseJoinColumns = @JoinColumn(name = "diagnosisPenyakitId"))
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<DiagnosisPenyakitModel> listDiagnosisPenyakit;
 
     public Long getIdPasien() {

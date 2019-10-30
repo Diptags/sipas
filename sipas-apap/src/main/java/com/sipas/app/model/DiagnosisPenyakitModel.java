@@ -1,8 +1,5 @@
 package com.sipas.app.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,8 +10,7 @@ import java.util.List;
 @Table(name = "diagnosisPenyakit")
 public class DiagnosisPenyakitModel implements Serializable {
 
-    @ManyToMany(mappedBy = "listDiagnosisPenyakit", fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToMany(mappedBy = "listDiagnosisPenyakit", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PasienModel> listPenderita;
 
     @Id

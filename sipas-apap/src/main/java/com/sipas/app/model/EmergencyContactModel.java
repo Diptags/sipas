@@ -11,7 +11,7 @@ public class EmergencyContactModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idEmergencyContact;
 
     @NotNull
     @Size(max = 255)
@@ -31,12 +31,12 @@ public class EmergencyContactModel implements Serializable {
     @OneToOne(mappedBy = "emergencyContact")
     private PasienModel pasien;
 
-    public Long getId() {
-        return id;
+    public Long getIdEmergencyContact() {
+        return idEmergencyContact;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdEmergencyContact(Long idEmergencyContact) {
+        this.idEmergencyContact = idEmergencyContact;
     }
 
     public String getNik() {
