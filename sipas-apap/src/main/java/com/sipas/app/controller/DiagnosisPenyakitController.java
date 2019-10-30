@@ -1,6 +1,7 @@
 package com.sipas.app.controller;
 
 import com.sipas.app.model.DiagnosisPenyakitModel;
+import com.sipas.app.model.PasienModel;
 import com.sipas.app.service.DiagnosisPenyakitService;
 import com.sipas.app.service.PasienService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,9 @@ public class DiagnosisPenyakitController {
     public String showDiagnosisPenyakitById(@RequestParam(value = "idDiagnosis") Long idDiagnosisPenyakit, Model model)
     {
         DiagnosisPenyakitModel diagnosisPenyakit = diagnosisPenyakitService.getDiagnosisPenyakitByIdDiagnosisPenyakit(idDiagnosisPenyakit);
+        List<PasienModel> listPenderita = diagnosisPenyakit.getListPenderita();
         model.addAttribute("penyakit", diagnosisPenyakit);
+        model.addAttribute("listPenderita", listPenderita);
         return "diagnosispenyakit-detail";
     }
 
@@ -52,7 +55,7 @@ public class DiagnosisPenyakitController {
                                                  Model model)
     {
         diagnosisPenyakitService.addDiagnosisPenyakit(diagnosisPenyakit);
-        model.addAttribute("pesan", "Data diagnosis penyakit berhasil ditambahkan");
+        model.addAttribute("pesan", "Data diagnosis penyakit berhasil ditambahkan!");
         return "message-info";
     }
 
@@ -62,7 +65,7 @@ public class DiagnosisPenyakitController {
                                           Model model)
     {
         diagnosisPenyakitService.deleteDiagnosisPenyakit(idDiagnosisPenyakit);
-        model.addAttribute("pesan", "Data diagnosis penyakit berhasil dihapus");
+        model.addAttribute("pesan", "Data diagnosis penyakit berhasil dihapus!");
         return "message-info";
     }
 
