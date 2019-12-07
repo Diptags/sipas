@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>SIPAS - Sistem Informasi Pasien</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar"></nav><br>
+    <div class="container-fluid">
+        <h2 class="text-center font-weight-bold">Sistem Informasi Pasien</h2><br>
+        <a th:href="@{/pasien/tambah}">
+            <button type="button" class="btn btn-info btn-sm">Tambah Pasien Baru</button>
+        </a>
+        <br><br>
+        <div class="card">
+            <div class="card-header bg-dark text-white">Daftar Seluruh Pasien</div>
+            <div class="card-body text-center">
+                <table class="table" th:if="${pasienList.size() > 0}">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nama</th>
+                        <th scope="col">NIK</th>
+                        <th scope="col">Jenis Kelamin</th>
+                        <th scope="col">Kode Pasien</th>
+                        <th scope="col">Tempat Lahir</th>
+                        <th scope="col">Tanggal Lahir</th>
+                        <th scope="col">Telepon Emergency Contact</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pasien : ${pasienList}">
+                        <td th:text="${pasien.nama}"></td>
+                        <td th:text="${pasien.nik}"></td>
+                        <td th:text="${pasien.jenisKelamin.equals(1)} ? 'Laki-Laki' : 'Perempuan'" />
+                        <td th:text="${pasien.kode}"></td>
+                        <td th:text="${pasien.tempatLahir}"></td>
+                        <td th:text="${#strings.substring(pasien.tanggalLahir,0,10)}"></td>
+                        <td th:text="${pasien.emergencyContact.getNomorHp()}"></td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    <a th:href="@{/pasien/}+${pasien.nik}+'/tambah-diagnosis'">
+                                        <button type="button" class="btn btn-dark btn-sm">Tambah Diagnosis</button>
+                                    </a>
+                                    <a th:href="@{/pasien(nikPasien=${pasien.nik})}">
+                                        <button type="button" class="btn btn-info btn-sm">Lihat</button>
+                                    </a>
+                                    <a th:href="@{/pasien/ubah/}+${pasien.nik}">
+                                        <button type="button" class="btn btn-dark btn-sm">Ubah</button>
+                                    </a>
+                                    <a th:href="@{/pasien/hapus/}+${pasien.idPasien}">
+                                        <button type="button" class="btn btn-danger btn-sm">Hapus</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p th:unless="${pasienList.size() > 0}">Belum ada data pasien yang dimasukkan. Tekan "Tambah Pasien Baru" untuk menambahkan</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
